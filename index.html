@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garlic Restaurant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #000 0%, #0f2027 100%);
+      color: #fff;
+    }
+    header {
+      padding: 30px;
+      text-align: center;
+      border-bottom: 3px solid #2ecc71;
+      animation: fadeDown 1s ease;
+    }
+    section {
+      padding: 20px;
+      max-width: 950px;
+      margin: auto;
+      animation: fadeUp 1s ease;
+    }
+    h2 {color:#2ecc71;text-align:center;margin-bottom:20px;}
+
+    .accordion {
+      background: linear-gradient(90deg, #111, #1a1a1a);
+      color: #fff;
+      cursor: pointer;
+      padding: 16px;
+      width: 100%;
+      border: 1px solid #2ecc71;
+      font-size: 18px;
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 8px;
+      transition: transform .2s, background .3s;
+    }
+    .accordion:hover {transform: scale(1.02);background:#1f1f1f;}
+
+    .panel {
+      display: none;
+      background: #fff;
+      color: #000;
+      padding: 12px;
+      border-radius: 0 0 10px 10px;
+      animation: slideDown .4s ease;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .menu-item:hover {background:#f5f5f5;transform: translateX(4px);}
+
+    .item-left {display:flex;align-items:center;gap:12px;font-weight:600;}
+    .menu-item img {width:90px;height:65px;object-fit:cover;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,.2);}    
+    .price {color:#2ecc71;font-weight:bold;font-size:16px;}
+
+    footer {
+      border-top: 2px solid #2ecc71;
+      padding: 25px;
+      text-align: center;
+      background:#000;
+    }
+    .socials img {
+      width: 32px;
+      margin: 0 10px;
+      transition: transform .3s;
+    }
+    .socials img:hover {transform: scale(1.2);}
+
+    /* BILL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn .3s ease;
+    }
+    .bill {
+      background: #fff;
+      color: #000;
+      padding: 22px;
+      border-radius: 14px;
+      width: 340px;
+      text-align: center;
+      animation: pop .4s ease;
+      box-shadow:0 10px 25px rgba(0,0,0,.5);
+    }
+    .btn {
+      margin: 6px;
+      padding: 10px 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: transform .2s, opacity .2s;
+    }
+    .btn:hover {transform: scale(1.05);opacity:.9;}
+    .green {background:#2ecc71;color:#000;}
+    .gray {background:#ddd;}
+
+    .qty {display:flex;justify-content:center;align-items:center;gap:14px;margin:12px 0;}
+    .qty button {padding:6px 14px;font-size:18px;border-radius:6px;}
+
+    input {
+      border-radius:6px;
+      border:1px solid #ccc;
+      font-size:14px;
+    }
+
+    @keyframes fadeDown {from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
+    @keyframes fadeUp {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+    @keyframes slideDown {from{opacity:0;transform:scaleY(.9);}to{opacity:1;transform:none;}}
+    @keyframes pop {from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+    @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Garlic Restaurant</h1>
+  <p>Fresh • Tasty • Fast</p>
+</header>
+
+<section>
+  <h2>Our Menu</h2>
+
+  <!-- FRIED RICE -->
+  <button class="accordion">🍚 Fried Rice ▼</button>
+  <div class="panel">
+    <div class="menu-item" onclick="openBill('Chicken Fried Rice',1200)"><div class="item-left"><img src="https://via.placeholder.com/100">Chicken Fried Rice</div><div class="price">Rs.1200</div></div>
+    <div class="menu-item" onclick="openBill('Egg Fried Rice',900)"><div class="item-left"><img src="https://via.placeholder.com/100">Egg Fried Rice</div><div class="price">Rs.900</div></div>
+    <div class="menu-item" onclick="openBill('Vegetable Fried Rice',800)"><div class="item-left"><img src="https://via.placeholder.com/100">Vegetable Fried Rice</div><div class="price">Rs.800</div></div>
+    <div class="menu-item" onclick="openBill('Seafood Fried Rice',1500)"><div class="item-left"><img src="https://via.placeholder.com/100">Seafood Fried Rice</div><div class="price">Rs.1500</div></div>
+    <div class="menu-item" onclick="openBill('Mixed Fried Rice',1700)"><div class="item-left"><img src="https://via.placeholder.com/100">Mixed Fried Rice</div><div class="price">Rs.1700</div></div>
+    <div class="menu-item" onclick="openBill('Special Garlic Fried Rice',1800)"><div class="item-left"><img src="https://via.placeholder.com/100">Special Garlic Fried Rice</div><div class="price">Rs.1800</div></div>
+  </div>
+
+  <!-- KOTTU -->
+  <button class="accordion">🍜 Kottu ▼</button>
+  <div class="panel">
+    <div class="menu-item" onclick="openBill('Chicken Kottu',1100)"><div class="item-left"><img src="https://via.placeholder.com/100">Chicken Kottu</div><div class="price">Rs.1100</div></div>
+    <div class="menu-item" onclick="openBill('Cheese Kottu',1300)"><div class="item-left"><img src="https://via.placeholder.com/100">Cheese Kottu</div><div class="price">Rs.1300</div></div>
+    <div class="menu-item" onclick="openBill('Egg Kottu',950)"><div class="item-left"><img src="https://via.placeholder.com/100">Egg Kottu</div><div class="price">Rs.950</div></div>
+    <div class="menu-item" onclick="openBill('Vegetable Kottu',850)"><div class="item-left"><img src="https://via.placeholder.com/100">Vegetable Kottu</div><div class="price">Rs.850</div></div>
+    <div class="menu-item" onclick="openBill('Mixed Kottu',1600)"><div class="item-left"><img src="https://via.placeholder.com/100">Mixed Kottu</div><div class="price">Rs.1600</div></div>
+    <div class="menu-item" onclick="openBill('Special Garlic Kottu',1750)"><div class="item-left"><img src="https://via.placeholder.com/100">Special Garlic Kottu</div><div class="price">Rs.1750</div></div>
+  </div>
+
+  <!-- DESSERTS -->
+  <button class="accordion">🍰 Desserts ▼</button>
+  <div class="panel">
+    <div class="menu-item" onclick="openBill('Chocolate Cake',600)"><div class="item-left"><img src="https://via.placeholder.com/100">Chocolate Cake</div><div class="price">Rs.600</div></div>
+    <div class="menu-item" onclick="openBill('Watalappan',500)"><div class="item-left"><img src="https://via.placeholder.com/100">Watalappan</div><div class="price">Rs.500</div></div>
+    <div class="menu-item" onclick="openBill('Ice Cream',400)"><div class="item-left"><img src="https://via.placeholder.com/100">Ice Cream</div><div class="price">Rs.400</div></div>
+    <div class="menu-item" onclick="openBill('Fruit Salad',450)"><div class="item-left"><img src="https://via.placeholder.com/100">Fruit Salad</div><div class="price">Rs.450</div></div>
+    <div class="menu-item" onclick="openBill('Caramel Pudding',550)"><div class="item-left"><img src="https://via.placeholder.com/100">Caramel Pudding</div><div class="price">Rs.550</div></div>
+  </div>
+</section>
+
+<footer>
+  <p>📞 Contact: <strong>0712930246 </strong></p>
+  <div class="socials">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook--v1.png" />
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" />
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" />
+  </div>
+  <p>© 2026 Garlic Restaurant</p>
+</footer>
+
+<!-- BILL MODAL -->
+<div class="modal" id="billModal">
+  <div class="bill" id="billArea">
+    <h3>Garlic Restaurant</h3>
+    <p id="billFood"></p>
+    <p id="billPrice"></p>
+
+    <input id="custName" placeholder="Customer Name" style="width:100%;padding:6px;margin:5px 0;" />
+    <input id="custAddress" placeholder="Delivery Address" style="width:100%;padding:6px;margin:5px 0;" />
+
+    <div class="qty">
+      <button onclick="changeQty(-1)">−</button>
+      <span id="qty">1</span>
+      <button onclick="changeQty(1)">+</button>
+    </div>
+
+    <p>Delivery: Rs. 350</p>
+    <hr>
+    <p><strong>Total: </strong><span id="billTotal"></span></p>
+
+    <button class="btn green" onclick="sendWhatsApp()">Send Order to WhatsApp</button>
+    <button class="btn gray" onclick="printBill()">Print Bill</button>
+    <br>
+    <button class="btn" onclick="closeBill()">Close</button>
+  </div>
+</div>
+
+<script>
+  let food = '';
+  let price = 0;
+  let qty = 1;
+  const delivery = 350;
+
+  document.querySelectorAll('.accordion').forEach(b => b.onclick = () => {
+    const p = b.nextElementSibling;
+    p.style.display = p.style.display === 'block' ? 'none' : 'block';
+  });
+
+  function openBill(f, p) {
+    food = f; price = p; qty = 1;
+    document.getElementById('qty').innerText = qty;
+    updateBill();
+    document.getElementById('billModal').style.display = 'flex';
+  }
+
+  function changeQty(v) {
+    qty = Math.max(1, qty + v);
+    document.getElementById('qty').innerText = qty;
+    updateBill();
+  }
+
+  function updateBill() {
+    document.getElementById('billFood').innerText = 'Food: ' + food;
+    document.getElementById('billPrice').innerText = 'Price: Rs. ' + price;
+    document.getElementById('billTotal').innerText = 'Rs. ' + (price * qty + delivery);
+  }
+
+  function closeBill() { document.getElementById('billModal').style.display = 'none'; }
+
+  function sendWhatsApp() {
+    const name = document.getElementById('custName').value || 'Not provided';
+    const address = document.getElementById('custAddress').value || 'Not provided';
+    const msg = `Garlic Restaurant Order%0ACustomer: ${name}%0AAddress: ${address}%0AFood: ${food}%0AQty: ${qty}%0APrice: Rs.${price}%0ADelivery: Rs.350%0ATotal: Rs.${price * qty + delivery}`;
+    window.open(`https://wa.me/94712930246?text=${msg}`, '_blank');
+  }
+
+  function printBill() {
+    const w = window.open('', '', 'width=400,height=600');
+    w.document.write(document.getElementById('billArea').innerHTML);
+    w.print(); w.close();
+  }
+</script>
+
+</body>
+</html>
